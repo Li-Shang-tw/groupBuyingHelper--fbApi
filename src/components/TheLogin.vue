@@ -29,6 +29,8 @@ import { useAuthorityStore } from "../stores/AuthorityStore";
 const authorityStore = useAuthorityStore();
 import { useStepStore } from "../stores/StepStore";
 const stepStore = useStepStore();
+import { usePageListStore } from "../stores/PageListStore.js";
+const pageListStore = usePageListStore();
 //import composables
 import { useLogIn } from "../comosables/logIn";
 import { useGetAccountApi } from "../comosables/GetAccountApi";
@@ -48,8 +50,9 @@ async function getAuthority() {
 
   //====== 2.  取得PageId 與accesssToken-=====================
   const pagesList = await useGetAccountApi(userID, accessToken);
-  console.log(pagesList);
-  //需要name id access_token
+
+  //儲存pages
+  pageListStore.getPages(pagesList);
 }
 </script>
 
