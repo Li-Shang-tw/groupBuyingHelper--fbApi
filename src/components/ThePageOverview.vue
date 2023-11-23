@@ -41,6 +41,9 @@
 import { usePageListStore } from "../stores/PageListStore";
 const pageListStore = usePageListStore();
 
+import { usePostListStore } from "../stores/PostListStore";
+const postListStore = usePostListStore();
+
 import { useStepStore } from "../stores/StepStore";
 const stepStore = useStepStore();
 
@@ -61,6 +64,8 @@ async function selectPage(id, accessToken) {
     //在對應的post下建立comments屬性，來儲存comments
     postsList[index].comments = comments;
   });
+  postListStore.getPost(postsList);
+  stepStore.nextStep();
 }
 </script>
 

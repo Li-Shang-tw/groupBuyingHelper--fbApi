@@ -5,11 +5,13 @@ const stepStore = useStepStore();
 //import component
 import TheLogin from "./components/TheLogin.vue";
 import ThePageOverview from "./components/ThePageOverview.vue";
+import ThePostOverview from "./components/ThePostOverview.vue";
 </script>
 
 <template>
   <TheLogin v-if="stepStore.step == 1" />
   <ThePageOverview v-else-if="stepStore.step == 2" />
+  <ThePostOverview v-else-if="stepStore.step == 3" />
 </template>
 
 <style scoped></style>
