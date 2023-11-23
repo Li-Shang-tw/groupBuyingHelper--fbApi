@@ -15,6 +15,8 @@
     <div class="grid grid-cols-1 gap-2 mt-12 sm:grid-cols-3 lg:mt-20">
       <div
         v-for="page in pageListStore.pages"
+        :key="page.id"
+        @click="() => selectPage(page.id, page['access_token'])"
         class="transition-all duration-1000 bg-white hover:bg-blue-500 hover:shadow-xl m-2 p-4 relative z-40 group"
       >
         <div
@@ -38,6 +40,28 @@
 <script setup>
 import { usePageListStore } from "../stores/PageListStore";
 const pageListStore = usePageListStore();
+
+import { useStepStore } from "../stores/StepStore";
+const stepStore = useStepStore();
+
+import { useAuthorityStore } from "../stores/AuthorityStore";
+const authorityStore = useAuthorityStore();
+
+import { useGetPostsApi } from "../comosables/GetPostsApi";
+import { useGetCommentsApi } from "../comosables/GetCommentsApi";
+
+//將page token
+
+async function selectPage(id, accessToken) {
+  //====== 3.  取得posts===================== /
+  const postsList = await useGetPostsApi(id, accessToken);
+  //====== 4.  取得每個post的comment-=====================
+  postsList.forEach(async (post, index) => {
+    const comments = await useGetCommentsApi(post.id, accessToken);
+    //在對應的post下建立comments屬性，來儲存comments
+    postsList[index].comments = comments;
+  });
+}
 </script>
 
 <style scoped></style>
