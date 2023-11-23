@@ -27,13 +27,19 @@
 //import與使用useAuthorityStore
 import { useAuthorityStore } from "../stores/AuthorityStore";
 const authorityStore = useAuthorityStore();
+import { useStepStore } from "../stores/StepStore";
+const stepStore = useStepStore();
 //import composables
 import { useLogIn } from "../comosables/logIn";
 import { useGetAccountApi } from "../comosables/GetAccountApi";
 
-function handleSubmit(data) {
+async function handleSubmit(data) {
   authorityStore.getAppId(data.appId);
-  getAuthority();
+  //要先等取得權限，在跳轉下一步驟
+  await getAuthority();
+  //成功，換到下個階段
+  stepStore.nextStep();
+  //失敗，跳出通知
 }
 
 async function getAuthority() {
