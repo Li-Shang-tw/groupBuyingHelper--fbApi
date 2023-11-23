@@ -1,11 +1,17 @@
-import './assets/main.css'
+import "./assets/main.css";
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from './App.vue'
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import { plugin, defaultConfig } from "@formkit/vue";
+import config from "/formkit.config";
+import App from "./App.vue";
 
-const app = createApp(App)
+//import其他套件
+import axios from "axios";
 
-app.use(createPinia())
+const app = createApp(App);
 
-app.mount('#app')
+app.use(createPinia());
+app.use(plugin, defaultConfig(config));
+
+app.mount("#app");
