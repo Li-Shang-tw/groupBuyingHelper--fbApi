@@ -117,7 +117,6 @@
 <script setup>
 import { usePostListStore } from "../stores/PostListStore";
 const postListStore = usePostListStore();
-console.log(postListStore.posts);
 </script>
 
 <style scoped></style>
