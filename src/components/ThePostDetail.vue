@@ -2,41 +2,20 @@
   <div class="bg-white p-8 rounded-md w-full">
     <div class="flex items-center justify-between pb-6">
       <div>
-        <h2 class="text-gray-600 font-semibold">貼文總覽</h2>
-        <span class="text-xs">Post Overview</span>
+        <h2 class="text-gray-600 font-semibold">貼文標題:</h2>
+        <h3 class="text-gray-600 font-semibold">內容:</h3>
+        <p>{{ postListStore.cuurentPost.message }}</p>
       </div>
       <div class="flex items-center justify-between">
         <div class="flex bg-gray-50 items-center p-2 rounded-md">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5 text-gray-400"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              clip-rule="evenodd"
-            />
-          </svg>
-          <input
-            class="bg-gray-50 outline-none ml-1 block"
-            type="text"
-            name=""
-            id=""
-            placeholder="search..."
-          />
+          <h3 class="text-gray-600 font-semibold">發文時間:</h3>
+          <p>{{ postListStore.cuurentPost["created_time"] }}</p>
         </div>
         <div class="lg:ml-40 ml-10 space-x-8">
           <button
             class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
           >
-            New Report
-          </button>
-          <button
-            class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
-          >
-            Create
+            回貼文總覽
           </button>
         </div>
       </div>
@@ -50,43 +29,49 @@
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
-                  標題
+                  買家
                 </th>
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
-                  建立時間
+                  留言時間
                 </th>
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
-                  留言數
+                  種類
+                </th>
+                <th
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                >
+                  數量
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="post in postListStore.posts"
-                :key="post.id"
-                @click="() => checkDetail(post.id)"
-              >
+              <tr v-for="comment in commentMessage" :key="comment.id">
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <div class="flex items-center">
                     <div class="ml-3">
                       <p class="text-gray-900 whitespace-no-wrap">
-                        {{ post.message }}
+                        {{ useExtractMessage(comment.message, "name") }}
                       </p>
                     </div>
                   </div>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <p class="text-gray-900 whitespace-no-wrap">
-                    {{ post["created_time"] }}
+                    {{ comment["create_time"] }}
                   </p>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <p class="text-gray-900 whitespace-no-wrap">
-                    {{ post.comments.length }}
+                    {{ useExtractMessage(comment.message, "productType") }}
+                  </p>
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p class="text-gray-900 whitespace-no-wrap">
+                    {{ useExtractMessage(comment.message, "number") }}
                   </p>
                 </td>
               </tr>
@@ -119,14 +104,12 @@
 </template>
 
 <script setup>
+import { computed, ref } from "vue";
 import { usePostListStore } from "../stores/PostListStore";
-import { useStepStore } from "../stores/StepStore";
+import { useExtractMessage } from "../comosables/ExtractMessage";
 const postListStore = usePostListStore();
-const stepStore = useStepStore();
-function checkDetail(postId) {
-  postListStore.selectPost(postId);
-  stepStore.nextStep();
-}
+
+const commentMessage = ref(postListStore.cuurentPost.comments);
 </script>
 
 <style scoped></style>
