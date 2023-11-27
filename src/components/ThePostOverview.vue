@@ -81,7 +81,7 @@
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <p class="text-gray-900 whitespace-no-wrap">
-                    {{ post["created_time"] }}
+                    {{ useFormatTime(post["created_time"]) }}
                   </p>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -123,6 +123,8 @@ import { usePostListStore } from "../stores/PostListStore";
 import { useStepStore } from "../stores/StepStore";
 const postListStore = usePostListStore();
 const stepStore = useStepStore();
+
+import { useFormatTime } from "../comosables/FormatTime";
 function checkDetail(postId) {
   postListStore.selectPost(postId);
   stepStore.nextStep();

@@ -9,7 +9,7 @@
       <div class="flex items-center justify-between">
         <div class="flex bg-gray-50 items-center p-2 rounded-md">
           <h3 class="text-gray-600 font-semibold">發文時間:</h3>
-          <p>{{ postListStore.cuurentPost["created_time"] }}</p>
+          <p>{{ useFormatTime(postListStore.cuurentPost["created_time"]) }}</p>
         </div>
         <div class="lg:ml-40 ml-10 space-x-8">
           <button
@@ -61,7 +61,7 @@
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <p class="text-gray-900 whitespace-no-wrap">
-                    {{ comment["create_time"] }}
+                    {{ useFormatTime(comment["created_time"]) }}
                   </p>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -107,8 +107,9 @@
 import { computed, ref } from "vue";
 import { usePostListStore } from "../stores/PostListStore";
 import { useExtractMessage } from "../comosables/ExtractMessage";
+import { useFormatTime } from "../comosables/FormatTime";
 const postListStore = usePostListStore();
-
+console.log(postListStore.cuurentPost);
 const commentMessage = ref(postListStore.cuurentPost.comments);
 </script>
 

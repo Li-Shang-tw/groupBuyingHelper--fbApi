@@ -7,7 +7,7 @@ export function useExtractMessage(message, type) {
     if (splitMessage.length > 2) {
       return splitMessage[1];
     } else {
-      return "";
+      return "X";
     }
   } else if (type == "number") {
     //當字串list長度為3
