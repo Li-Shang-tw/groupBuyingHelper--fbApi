@@ -100,25 +100,36 @@
                 @click="() => checkDetail(post.id)"
                 v-else-if="show == 'part'"
               >
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <div class="flex items-center">
-                    <div class="ml-3">
-                      <p class="text-gray-900 whitespace-no-wrap">
-                        {{ showHashTag(post.hastage) }}
-                      </p>
+                <template v-if="search.trim().length === 0">
+                  <h4>搜尋不到相關的商品貼文</h4>
+                </template>
+                <template v-else>
+                  <td
+                    class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                  >
+                    <div class="flex items-center">
+                      <div class="ml-3">
+                        <p class="text-gray-900 whitespace-no-wrap">
+                          {{ showHashTag(post.hastage) }}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p class="text-gray-900 whitespace-no-wrap">
-                    {{ useFormatTime(post["created_time"]) }}
-                  </p>
-                </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p class="text-gray-900 whitespace-no-wrap">
-                    {{ post.comments.length }}
-                  </p>
-                </td>
+                  </td>
+                  <td
+                    class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                  >
+                    <p class="text-gray-900 whitespace-no-wrap">
+                      {{ useFormatTime(post["created_time"]) }}
+                    </p>
+                  </td>
+                  <td
+                    class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                  >
+                    <p class="text-gray-900 whitespace-no-wrap">
+                      {{ post.comments.length }}
+                    </p>
+                  </td>
+                </template>
               </tr>
             </tbody>
           </table>
@@ -183,19 +194,7 @@ watchEffect(() => {
   });
   filteredPosts.value = result;
 });
-// //篩選post
-// const fiilteredPosts = computed(() => {
-//   let result = [];
-//   postListStore.posts.forEach((item) => {
-//     //比對hastage
-//     if (item.hastage.includes(search.value)) {
-//       result.push(item);
-//     }
-//     return result;
-//   });
-// });
 
-// watchEffect(()=>fiilteredPosts));
 function checkDetail(postId) {
   postListStore.selectPost(postId);
   stepStore.nextStep();
