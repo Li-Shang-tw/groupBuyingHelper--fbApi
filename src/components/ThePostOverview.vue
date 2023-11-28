@@ -74,7 +74,7 @@
                   <div class="flex items-center">
                     <div class="ml-3">
                       <p class="text-gray-900 whitespace-no-wrap">
-                        {{ showHashtage(post.hastage) }}
+                        {{ showHashTag(post.hastage) }}
                       </p>
                     </div>
                   </div>
@@ -125,11 +125,7 @@ const postListStore = usePostListStore();
 const stepStore = useStepStore();
 
 import { useFormatTime } from "../comosables/FormatTime";
-
-const showHashtage = (hastag) => {
-  console.log(hastag);
-  return hastag;
-};
+import { showHashTag } from "../comosables/ShowHashTag";
 
 function checkDetail(postId) {
   postListStore.selectPost(postId);

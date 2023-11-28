@@ -2,7 +2,9 @@
   <div class="bg-white p-8 rounded-md w-full">
     <div class="flex items-center justify-between pb-6">
       <div>
-        <h2 class="text-gray-600 font-semibold">貼文標題:</h2>
+        <h2 class="text-gray-600 font-semibold">
+          貼文商品: {{ showHashTag(postListStore.cuurentPost.hastage) }}
+        </h2>
         <h3 class="text-gray-600 font-semibold">內容:</h3>
         <p>{{ postListStore.cuurentPost.message }}</p>
       </div>
@@ -108,6 +110,7 @@ import { computed, ref } from "vue";
 import { usePostListStore } from "../stores/PostListStore";
 import { useExtractMessage } from "../comosables/ExtractMessage";
 import { useFormatTime } from "../comosables/FormatTime";
+import { showHashTag } from "../comosables/ShowHashTag";
 const postListStore = usePostListStore();
 const commentMessage = ref(postListStore.cuurentPost.comments);
 </script>
