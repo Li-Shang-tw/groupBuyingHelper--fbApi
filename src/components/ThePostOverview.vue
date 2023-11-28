@@ -32,6 +32,7 @@
         <div class="lg:ml-40 ml-10 space-x-8">
           <button
             class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
+            @clcik="model = 'all'"
           >
             Show All
           </button>
@@ -140,7 +141,7 @@ import { showHashTag } from "../comosables/ShowHashTag";
 // import { search } from "@formkit/icons";
 
 //---本元件的posts
-const posts = ref(postListStore.posts);
+const posts = ref([]);
 const search = ref("");
 const model = ref("all");
 watchEffect(() => {
@@ -153,6 +154,8 @@ watchEffect(() => {
       }
     });
     posts.value = newPosts;
+  } else if (model.value == "all") {
+    posts.value = postListStore.posts;
   }
 });
 //======搜尋功能=========
