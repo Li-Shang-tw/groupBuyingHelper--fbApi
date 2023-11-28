@@ -20,26 +20,20 @@
             />
           </svg>
           <input
-            @click="() => changeModel('search')"
             v-model="search"
             class="bg-gray-50 outline-none ml-1 block"
             type="text"
             name=""
             id=""
             placeholder="search..."
+            @click="model = 'search'"
           />
         </div>
         <div class="lg:ml-40 ml-10 space-x-8">
           <button
-            @click="changeModel('all')"
             class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
           >
             Show All
-          </button>
-          <button
-            class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
-          >
-            Create
           </button>
         </div>
       </div>
@@ -59,6 +53,19 @@
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
                   建立時間
+                  <button>
+                    <font-awesome-icon
+                      :icon="['fas', 'circle-up']"
+                      class="mx-2"
+                      @clcik="changeOrder"
+                    />
+                  </button>
+                  <button>
+                    <font-awesome-icon
+                      :icon="['fas', 'circle-down']"
+                      class="mx-2"
+                    />
+                  </button>
                 </th>
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
@@ -69,36 +76,9 @@
             </thead>
             <tbody>
               <tr
-                v-for="post in postListStore.posts"
+                v-for="post in posts"
                 :key="post.id"
                 @click="() => checkDetail(post.id)"
-                v-if="show == 'all'"
-              >
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <div class="flex items-center">
-                    <div class="ml-3">
-                      <p class="text-gray-900 whitespace-no-wrap">
-                        {{ showHashTag(post.hastage) }}
-                      </p>
-                    </div>
-                  </div>
-                </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p class="text-gray-900 whitespace-no-wrap">
-                    {{ useFormatTime(post["created_time"]) }}
-                  </p>
-                </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p class="text-gray-900 whitespace-no-wrap">
-                    {{ post.comments.length }}
-                  </p>
-                </td>
-              </tr>
-              <tr
-                v-for="post in filteredPosts"
-                :key="post.hastage"
-                @click="() => checkDetail(post.id)"
-                v-else-if="show == 'part'"
               >
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <div class="flex items-center">
@@ -157,32 +137,29 @@ const stepStore = useStepStore();
 
 import { useFormatTime } from "../comosables/FormatTime";
 import { showHashTag } from "../comosables/ShowHashTag";
+// import { search } from "@formkit/icons";
 
-//======搜尋功能=========
-//搜尋的變數
+//---本元件的posts
+const posts = ref(postListStore.posts);
 const search = ref("");
-//呈現狀態的變數
-const show = ref("all"); //--預設為all，展示所有
-function changeModel(state) {
-  if (state == "search") {
-    show.value = "part";
-  } else if (state == "all") {
-    show.value = "all";
-  }
-}
-
-const filteredPosts = ref([]);
+const model = ref("all");
 watchEffect(() => {
-  let result = [];
-  postListStore.posts.forEach((item) => {
-    //比對hastag
-    //排除掉search為"' 也會與字串匹配
-    if (search.value && item.hastage.includes(search.value)) {
-      result.push(item);
-    }
-  });
-  filteredPosts.value = result;
+  //search模式:當點選input
+  if (search.value && model.value == "search") {
+    //必須要用完整的posts來做篩選
+    const newPosts = postListStore.posts.filter((item) => {
+      if (item.hastage.includes(search.value)) {
+        return item;
+      }
+    });
+    posts.value = newPosts;
+  }
 });
+//======搜尋功能=========
+
+//呈現狀態的變數
+
+//======時間排序=========
 
 function checkDetail(postId) {
   postListStore.selectPost(postId);
