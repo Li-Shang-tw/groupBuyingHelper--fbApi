@@ -100,36 +100,25 @@
                 @click="() => checkDetail(post.id)"
                 v-else-if="show == 'part'"
               >
-                <template v-if="search.trim().length === 0">
-                  <h4>搜尋不到相關的商品貼文</h4>
-                </template>
-                <template v-else>
-                  <td
-                    class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
-                  >
-                    <div class="flex items-center">
-                      <div class="ml-3">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          {{ showHashTag(post.hastage) }}
-                        </p>
-                      </div>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <div class="flex items-center">
+                    <div class="ml-3">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                        {{ showHashTag(post.hastage) }}
+                      </p>
                     </div>
-                  </td>
-                  <td
-                    class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
-                  >
-                    <p class="text-gray-900 whitespace-no-wrap">
-                      {{ useFormatTime(post["created_time"]) }}
-                    </p>
-                  </td>
-                  <td
-                    class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
-                  >
-                    <p class="text-gray-900 whitespace-no-wrap">
-                      {{ post.comments.length }}
-                    </p>
-                  </td>
-                </template>
+                  </div>
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p class="text-gray-900 whitespace-no-wrap">
+                    {{ useFormatTime(post["created_time"]) }}
+                  </p>
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p class="text-gray-900 whitespace-no-wrap">
+                    {{ post.comments.length }}
+                  </p>
+                </td>
               </tr>
             </tbody>
           </table>
