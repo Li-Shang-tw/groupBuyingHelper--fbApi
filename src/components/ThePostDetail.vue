@@ -15,6 +15,7 @@
         </div>
         <div class="lg:ml-40 ml-10 space-x-8">
           <button
+            @click="stepStore.backStep"
             class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
           >
             回貼文總覽
@@ -111,7 +112,9 @@ import { usePostListStore } from "../stores/PostListStore";
 import { useExtractMessage } from "../comosables/ExtractMessage";
 import { useFormatTime } from "../comosables/FormatTime";
 import { showHashTag } from "../comosables/ShowHashTag";
+import { useStepStore } from "../stores/StepStore";
 const postListStore = usePostListStore();
+const stepStore = useStepStore();
 const commentMessage = ref(postListStore.cuurentPost.comments);
 </script>
 

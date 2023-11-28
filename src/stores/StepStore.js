@@ -10,5 +10,8 @@ export const useStepStore = defineStore("StepStore", {
     nextStep() {
       this.step += 1;
     },
+    backStep() {
+      this.step -= 1;
+    },
   },
 });
