@@ -109,7 +109,6 @@ import { usePostListStore } from "../stores/PostListStore";
 import { useExtractMessage } from "../comosables/ExtractMessage";
 import { useFormatTime } from "../comosables/FormatTime";
 const postListStore = usePostListStore();
-console.log(postListStore.cuurentPost);
 const commentMessage = ref(postListStore.cuurentPost.comments);
 </script>
 

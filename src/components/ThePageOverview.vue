@@ -53,6 +53,8 @@ const authorityStore = useAuthorityStore();
 import { useGetPostsApi } from "../comosables/GetPostsApi";
 import { useGetCommentsApi } from "../comosables/GetCommentsApi";
 
+import { useGetHashTage } from "../comosables/GetHashTage";
+
 async function selectPage(id, accessToken) {
   //====== 3.  取得posts===================== /
   const postsList = await useGetPostsApi(id, accessToken);
@@ -61,7 +63,10 @@ async function selectPage(id, accessToken) {
     const comments = await useGetCommentsApi(postsList[i].id, accessToken);
     postsList[i].comments = comments;
   }
-
+  //====== 5.  每個post取出hashtage，當成屬性=====================
+  postsList.forEach((post, index) => {
+    postsList[index].hastage = useGetHashTage(post.message);
+  });
   postListStore.getPost(postsList);
   stepStore.nextStep();
 }

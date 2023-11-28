@@ -50,7 +50,7 @@
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
-                  標題
+                  商品名稱
                 </th>
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
@@ -74,7 +74,7 @@
                   <div class="flex items-center">
                     <div class="ml-3">
                       <p class="text-gray-900 whitespace-no-wrap">
-                        {{ post.message }}
+                        {{ showHashtage(post.hastage) }}
                       </p>
                     </div>
                   </div>
@@ -125,6 +125,12 @@ const postListStore = usePostListStore();
 const stepStore = useStepStore();
 
 import { useFormatTime } from "../comosables/FormatTime";
+
+const showHashtage = (hastag) => {
+  console.log(hastag);
+  return hastag;
+};
+
 function checkDetail(postId) {
   postListStore.selectPost(postId);
   stepStore.nextStep();
