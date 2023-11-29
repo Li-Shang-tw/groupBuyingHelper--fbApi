@@ -54,14 +54,13 @@
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
                   建立時間
-                  <button>
+                  <button @click="changeOrder(posts, 'desc')">
                     <font-awesome-icon
                       :icon="['fas', 'circle-up']"
                       class="mx-2"
-                      @clcik="changeOrder"
                     />
                   </button>
-                  <button>
+                  <button @click="changeOrder(posts, 'asc')">
                     <font-awesome-icon
                       :icon="['fas', 'circle-down']"
                       class="mx-2"
@@ -144,6 +143,9 @@ import { showHashTag } from "../comosables/ShowHashTag";
 const posts = ref([]);
 const search = ref("");
 const model = ref("all");
+const order = ref("asc");
+
+//======搜尋功能=========
 watchEffect(() => {
   //search模式:當點選input
   if (search.value && model.value == "search") {
@@ -157,12 +159,19 @@ watchEffect(() => {
   } else if (model.value == "all") {
     posts.value = postListStore.posts;
   }
+  if (order.value == "asc") {
+    posts.value = useSortTime(posts.value, "asc");
+  } else if (order.value == "desc") {
+    posts.value = useSortTime(posts.value, "desc");
+  }
 });
-//======搜尋功能=========
-
-//呈現狀態的變數
 
 //======時間排序=========
+import { useSortTime } from "../comosables/SortTime";
+
+function changeOrder(direction) {
+  order.value = direction;
+}
 
 function checkDetail(postId) {
   postListStore.selectPost(postId);
