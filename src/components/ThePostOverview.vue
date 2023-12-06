@@ -53,16 +53,18 @@
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
                   建立時間
-                  <button @click="changeOrder('desc')">
+                  <button @click="changeOrder('asc')">
                     <font-awesome-icon
                       :icon="['fas', 'circle-up']"
                       class="mx-2"
+                      v-if="order == 'desc'"
                     />
                   </button>
-                  <button @click="changeOrder('asc')">
+                  <button @click="changeOrder('desc')">
                     <font-awesome-icon
                       :icon="['fas', 'circle-down']"
                       class="mx-2"
+                      v-if="order == 'asc'"
                     />
                   </button>
                 </th>
