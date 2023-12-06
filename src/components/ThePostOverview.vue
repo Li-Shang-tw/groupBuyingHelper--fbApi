@@ -54,13 +54,13 @@
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
                   建立時間
-                  <button @click="changeOrder(posts, 'desc')">
+                  <button @click="changeOrder('desc')">
                     <font-awesome-icon
                       :icon="['fas', 'circle-up']"
                       class="mx-2"
                     />
                   </button>
-                  <button @click="changeOrder(posts, 'asc')">
+                  <button @click="changeOrder('asc')">
                     <font-awesome-icon
                       :icon="['fas', 'circle-down']"
                       class="mx-2"
@@ -129,7 +129,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watchEffect } from "vue";
+import { ref, computed, watch, watchEffect } from "vue";
 import { usePostListStore } from "../stores/PostListStore";
 import { useStepStore } from "../stores/StepStore";
 const postListStore = usePostListStore();
@@ -146,6 +146,20 @@ const model = ref("all");
 const order = ref("asc");
 
 //======搜尋功能=========
+//--order
+watch(
+  //function可以拿到當下最新的
+  () => order.value,
+  () => {
+    if (order.value == "asc") {
+      console.log("asc---");
+      posts.value = useSortTime(posts.value, "asc");
+    } else if (order.value == "desc") {
+      console.log("desc---");
+      posts.value = useSortTime(posts.value, "desc");
+    }
+  }
+);
 watchEffect(() => {
   //search模式:當點選input
   if (search.value && model.value == "search") {
@@ -158,11 +172,6 @@ watchEffect(() => {
     posts.value = newPosts;
   } else if (model.value == "all") {
     posts.value = postListStore.posts;
-  }
-  if (order.value == "asc") {
-    posts.value = useSortTime(posts.value, "asc");
-  } else if (order.value == "desc") {
-    posts.value = useSortTime(posts.value, "desc");
   }
 });
 
