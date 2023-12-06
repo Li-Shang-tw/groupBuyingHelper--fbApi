@@ -156,6 +156,14 @@ watch(
         if (item.hastage.includes(search.value)) {
           return item;
         }
+        //當hastage有兩個以上
+        if (Array.isArray(item.hastage)) {
+          for (let tage of item.hastage) {
+            if (tage.includes(search.value)) {
+              return item;
+            }
+          }
+        }
       });
       posts.value = newPosts;
     }
