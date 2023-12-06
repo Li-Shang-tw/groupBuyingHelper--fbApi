@@ -26,13 +26,12 @@
             name=""
             id=""
             placeholder="search..."
-            @click="model = 'search'"
           />
         </div>
         <div class="lg:ml-40 ml-10 space-x-8">
           <button
             class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
-            @clcik="model = 'all'"
+            @click="showAll"
           >
             Show All
           </button>
@@ -129,7 +128,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, watchEffect } from "vue";
+import { ref, watch } from "vue";
 import { usePostListStore } from "../stores/PostListStore";
 import { useStepStore } from "../stores/StepStore";
 const postListStore = usePostListStore();
@@ -142,11 +141,32 @@ import { showHashTag } from "../comosables/ShowHashTag";
 //---本元件的posts
 const posts = ref([]);
 const search = ref("");
-const model = ref("all");
 const order = ref("asc");
-
+//初始化:渲染所有posts
+showAll();
 //======搜尋功能=========
-//--order
+//監聽search
+watch(
+  () => search.value,
+  () => {
+    //search模式:當點選input
+    if (search.value) {
+      //必須要用完整的posts來做篩選
+      const newPosts = postListStore.posts.filter((item) => {
+        if (item.hastage.includes(search.value)) {
+          return item;
+        }
+      });
+      posts.value = newPosts;
+    }
+  }
+);
+//show All
+function showAll() {
+  posts.value = postListStore.posts;
+}
+//======排序功能=========
+//監聽排序
 watch(
   //function可以拿到當下最新的
   () => order.value,
@@ -160,20 +180,6 @@ watch(
     }
   }
 );
-watchEffect(() => {
-  //search模式:當點選input
-  if (search.value && model.value == "search") {
-    //必須要用完整的posts來做篩選
-    const newPosts = postListStore.posts.filter((item) => {
-      if (item.hastage.includes(search.value)) {
-        return item;
-      }
-    });
-    posts.value = newPosts;
-  } else if (model.value == "all") {
-    posts.value = postListStore.posts;
-  }
-});
 
 //======時間排序=========
 import { useSortTime } from "../comosables/SortTime";
