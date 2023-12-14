@@ -1,36 +1,32 @@
 <template>
-  <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 relative">
-    <div class="max-w-xl mx-auto text-center">
-      <div class="inline-flex px-4 py-1.5 mx-auto rounded-full">
-        <p class="text-4xl font-semibold tracking-widest text-g uppercase">
-          粉絲專頁
-        </p>
-      </div>
-      <p
-        class="mt-4 text-base leading-relaxed text-gray-600 group-hover:text-white"
-      >
-        請選擇你要使用的粉絲專頁
-      </p>
-    </div>
-    <div class="grid grid-cols-1 gap-2 mt-12 sm:grid-cols-3 lg:mt-20">
-      <div
-        v-for="page in pageListStore.pages"
-        :key="page.id"
-        @click="() => selectPage(page.id, page['access_token'])"
-        class="transition-all duration-1000 bg-white hover:bg-blue-500 hover:shadow-xl m-2 p-4 relative z-40 group"
-      >
-        <div
-          class="absolute bg-blue-500/50 top-0 left-0 w-24 h-1 z-30 transition-all duration-200 group-hover:bg-white group-hover:w-1/2"
-        ></div>
-        <div class="py-2 px-9 relative">
-          <h3
-            class="mt-8 text-lg font-semibold text-black group-hover:text-white"
+  <div class="bg-gray-100">
+    <div
+      class="flex min-h-screen items-center justify-center min-h-screen px-24"
+    >
+      <div>
+        <div class="group relative -ml-4 flex scroll-mt-40 items-center pl-4">
+          <h2
+            class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug !mb-2 text-primary"
           >
-            粉專名稱:{{ page.name }}
-          </h3>
-          <p class="mt-4 text-base text-gray-600 group-hover:text-white">
-            粉專Id: {{ page.id }}
-          </p>
+            粉絲專頁
+          </h2>
+        </div>
+        <p
+          class="block antialiased font-sans text-base font-light leading-relaxed text-inherit !mb-4 !font-normal !text-gray-600"
+        >
+          請選擇你要使用的粉絲專頁
+        </p>
+        <div class="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
+          <div
+            class="grid w-full min-w-[7rem] transform cursor-pointer bg-blue-400 place-items-center rounded-xl border border-blue-gray-50 bg-white px-3 py-2 transition-all hover:scale-105 hover:border-blue-gray-100 hover:bg-blue-800 hover:bg-opacity-25"
+            v-for="page in pageListStore.pages"
+            :key="page.id"
+            @click="() => selectPage(page.id, page['access_token'])"
+          >
+            <span class="my-6 grid h-24 w-24 place-items-center text-white">
+              {{ page.name }}
+            </span>
+          </div>
         </div>
       </div>
     </div>

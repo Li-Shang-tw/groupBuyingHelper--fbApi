@@ -16,7 +16,7 @@
         <div class="lg:ml-40 ml-10 space-x-8">
           <button
             @click="stepStore.backStep"
-            class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
+            class="bg-blue-500 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
           >
             回貼文總覽
           </button>
@@ -80,26 +80,6 @@
               </tr>
             </tbody>
           </table>
-          <div
-            class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between"
-          >
-            <span class="text-xs xs:text-sm text-gray-900">
-              Showing 1 to 4 of 50 Entries
-            </span>
-            <div class="inline-flex mt-2 xs:mt-0">
-              <button
-                class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-l"
-              >
-                Prev
-              </button>
-              &nbsp; &nbsp;
-              <button
-                class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-r"
-              >
-                Next
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>

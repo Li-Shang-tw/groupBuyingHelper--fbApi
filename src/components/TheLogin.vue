@@ -3,22 +3,21 @@
     class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8"
   >
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img
-        class="mx-auto h-10 w-auto"
-        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-        alt="Your Company"
-      />
+      <img class="mx-auto w-auto rounded" src="../assets/logo.png" alt="logo" />
       <h2
         class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
       >
-        輸入你的App Id
+        網購小幫手
       </h2>
     </div>
 
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <FormKit type="form" @submit="handleSubmit">
-        <FormKit type="text" label="App Id" name="appId" />
-      </FormKit>
+    <div class="mt-10 mx-auto w-full max-w-sm">
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto w-full"
+        @click="handleSubmit"
+      >
+        呼叫網購小幫手
+      </button>
     </div>
   </div>
 </template>
@@ -35,8 +34,11 @@ const pageListStore = usePageListStore();
 import { useLogIn } from "../comosables/logIn";
 import { useGetAccountApi } from "../comosables/GetAccountApi";
 
-async function handleSubmit(data) {
-  authorityStore.getAppId(data.appId);
+//import appId
+import { appId } from "../../public/appId.js";
+
+async function handleSubmit() {
+  authorityStore.getAppId(appId);
   //要先等取得權限，在跳轉下一步驟
   await getAuthority();
   //成功，換到下個階段
