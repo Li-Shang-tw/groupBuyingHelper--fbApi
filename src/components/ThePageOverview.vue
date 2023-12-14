@@ -18,7 +18,7 @@
         </p>
         <div class="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
           <div
-            class="grid w-full min-w-[7rem] transform cursor-pointer bg-blue-400 place-items-center rounded-xl border border-blue-gray-50 bg-white px-3 py-2 transition-all hover:scale-105 hover:border-blue-gray-100 hover:bg-blue-800 hover:bg-opacity-25"
+            class="grid w-full min-w-[7rem] transform cursor-pointer place-items-center rounded-xl border border-blue-gray-50 px-3 py-2 transition-all hover:scale-105 hover:border-blue-gray-100 hover:bg-blue-800 hover:bg-opacity-25 bg-blue-500"
             v-for="page in pageListStore.pages"
             :key="page.id"
             @click="() => selectPage(page.id, page['access_token'])"
