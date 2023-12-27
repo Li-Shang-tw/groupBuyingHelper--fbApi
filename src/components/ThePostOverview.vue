@@ -28,7 +28,9 @@
             placeholder="search..."
           />
         </div>
+
         <div class="lg:ml-40 ml-10 space-x-8">
+          <ExportToExcel :data="posts" />
           <button
             class="bg-blue-500 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
             @click="showAll"
@@ -119,6 +121,9 @@ const stepStore = useStepStore();
 import { useFormatTime } from "../comosables/FormatTime";
 import { showHashTag } from "../comosables/ShowHashTag";
 // import { search } from "@formkit/icons";
+
+//======匯出excel=========
+import ExportToExcel from "./ExportToExcel.vue";
 
 //---本元件的posts
 const posts = ref([]);
