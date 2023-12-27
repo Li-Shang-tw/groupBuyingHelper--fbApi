@@ -35,7 +35,7 @@ import { useLogIn } from "../comosables/logIn";
 import { useGetAccountApi } from "../comosables/GetAccountApi";
 
 //import appId
-import { appId } from "../../public/appId.js";
+const appId = import.meta.env.VITE_APP_ID;
 
 async function handleSubmit() {
   authorityStore.getAppId(appId);
