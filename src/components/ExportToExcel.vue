@@ -17,6 +17,7 @@ const data = props.data;
 const mode = props.mode;
 
 function exportToExcel(data, mode) {
+  //====all=============
   if (mode === "all") {
     //淺拷貝data
     const allData = [...data];
@@ -88,14 +89,25 @@ function exportToExcel(data, mode) {
     const exportFile = "全部post資料.xlsx";
     XLSX.writeFile(wb, exportFile);
     alert(`Excel file "${exportFile}" has been created.`);
+    //====post=============
   } else if (mode === "post") {
-    //製作第二份sheet的資料commentsTable
     const commentsTable = [];
-    //第一列為標題
-    const firstRow = ["買家", "留言時間", "種類", "數量"];
-    commentsTable.push(firstRow);
-    //第二列之後為資料陣列
-    data.comments.forEach((comment) => {
+    //post的資訊
+    const postProduct = data.hastage;
+    const postMessage = data.message;
+    const postCreatedTime = data.created_time;
+    //第一列為post的資訊
+    const postTitleRow = ["商品名稱", "貼文內容", "貼文時間"];
+    const postRow = [postProduct, postMessage, postCreatedTime];
+    commentsTable.push(postTitleRow);
+    commentsTable.push(postRow);
+    //中間留白
+    commentsTable.push([]);
+    //comment標題
+    const commentTitleRow = ["ID", "買家", "留言時間", "種類", "數量"];
+    commentsTable.push(commentTitleRow);
+    //comment資料陣列
+    data.comments.forEach((comment, index) => {
       //從留言的訊息中取得買家名稱與數量--留言格式為"買家名稱 + 數量" 或 "買家名稱 種類  + 數量"
       const messageList = comment.message.split("+");
 
@@ -104,21 +116,29 @@ function exportToExcel(data, mode) {
         //有種類
         const [buyer, variety] = messageList[0].split(" ");
         const quantity = messageList[1];
-        const row = [buyer, comment.created_time, variety, quantity];
+        const row = [index + 1, buyer, comment.created_time, variety, quantity];
         commentsTable.push(row);
       } else {
         //沒有種類
         const buyer = messageList[0];
         const quantity = messageList[1];
-        const row = [buyer, comment.created_time, "無", quantity];
+        const row = [index + 1, buyer, comment.created_time, "無", quantity];
         commentsTable.push(row);
       }
     });
 
-    //取得post的資料--商品類
+    // 建立一個新的空的工作簿
+    const wb = XLSX.utils.book_new();
     // 將資料轉換為工作表
-
-    // const ws = XLSX.utils.aoa_to_sheet(commentsTable);
+    const ws = XLSX.utils.aoa_to_sheet(commentsTable);
+    //工作表的名稱
+    const sheetName = `${postProduct}訂單表`;
+    // 將工作表添加到工作簿中，並為該工作表命名
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    // 將工作簿寫入到文件
+    const exportFile = "post資料.xlsx";
+    XLSX.writeFile(wb, exportFile);
+    alert(`Excel file "${exportFile}" has been created.`);
   }
 }
 </script>
