@@ -3,17 +3,17 @@
 import { useStepStore } from "./stores/StepStore";
 const stepStore = useStepStore();
 //import component
-import TheLogin from "./components/TheLogin.vue";
-import ThePageOverview from "./components/ThePageOverview.vue";
-import ThePostOverview from "./components/ThePostOverview.vue";
-import ThePostDetail from "./components/ThePostDetail.vue";
+import Login from "./components/Login.vue";
+import PageOverview from "./components/PageOverview.vue";
+import PostOverview from "./components/PostOverview.vue";
+import PostDetail from "./components/PostDetail.vue";
 </script>
 
 <template>
-  <TheLogin v-if="stepStore.step == 1" />
-  <ThePageOverview v-else-if="stepStore.step == 2" />
-  <ThePostOverview v-else-if="stepStore.step == 3" />
-  <ThePostDetail v-else-if="stepStore.step == 4" />
+  <Login v-if="stepStore.step == 1" />
+  <PageOverview v-else-if="stepStore.step == 2" />
+  <PostOverview v-else-if="stepStore.step == 3" />
+  <PostDetail v-else-if="stepStore.step == 4" />
 </template>
 
 <style scoped></style>
