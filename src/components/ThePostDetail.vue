@@ -14,6 +14,7 @@
           <p>{{ useFormatTime(postListStore.cuurentPost["created_time"]) }}</p>
         </div>
         <div class="lg:ml-40 ml-10 space-x-8">
+          <ExportToExcel :data="postListStore.cuurentPost" mode="post" />
           <button
             @click="stepStore.backStep"
             class="bg-blue-500 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
@@ -93,6 +94,9 @@ import { useExtractMessage } from "../comosables/ExtractMessage";
 import { useFormatTime } from "../comosables/FormatTime";
 import { showHashTag } from "../comosables/ShowHashTag";
 import { useStepStore } from "../stores/StepStore";
+//exportToExcel
+import ExportToExcel from "./ExportToExcel.vue";
+
 const postListStore = usePostListStore();
 const stepStore = useStepStore();
 const commentMessage = ref(postListStore.cuurentPost.comments);

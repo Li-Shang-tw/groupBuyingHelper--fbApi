@@ -30,7 +30,7 @@
         </div>
 
         <div class="lg:ml-40 ml-10 space-x-8">
-          <ExportToExcel :data="posts" />
+          <ExportToExcel :data="posts" mode="all" />
           <button
             class="bg-blue-500 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
             @click="showAll"
