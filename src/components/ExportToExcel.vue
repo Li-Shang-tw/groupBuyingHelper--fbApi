@@ -10,6 +10,8 @@
 <script setup>
 //取得xlsx
 import * as XLSX from "xlsx/xlsx.mjs";
+import { useFormatTime } from "../comosables/FormatTime";
+
 //接收props
 const props = defineProps(["data", "mode"]);
 //取的props的變數
@@ -28,8 +30,12 @@ function exportToExcel(data, mode) {
     postsTable.push(firstRow);
     //第二列之後為資料陣列
     allData.forEach((item, index) => {
-      //複製item，並將comments改成數字
-      const newItem = { ...item, comments: item.comments.length || 0 };
+      //複製item，並將comments改成數字與格式化時間
+      const newItem = {
+        ...item,
+        comments: item.comments.length || 0,
+        created_time: useFormatTime(item.created_time),
+      };
       //移除貼文的id，以免跟ID混淆
       delete newItem.id;
       //當hashage是陣列，轉成字串
@@ -67,13 +73,23 @@ function exportToExcel(data, mode) {
           //有種類
           const [buyer, variety] = messageList[0].split(" ");
           const quantity = messageList[1];
-          const row = [buyer, comment.created_time, variety, quantity];
+          const row = [
+            buyer,
+            useFormatTime(comment.created_time),
+            variety,
+            quantity,
+          ];
           commentsTable.push(row);
         } else {
           //沒有種類
           const buyer = messageList[0];
           const quantity = messageList[1];
-          const row = [buyer, comment.created_time, "", quantity];
+          const row = [
+            buyer,
+            useFormatTime(comment.created_time),
+            "",
+            quantity,
+          ];
           commentsTable.push(row);
         }
         // 將資料轉換為工作表
@@ -95,7 +111,7 @@ function exportToExcel(data, mode) {
     //post的資訊
     const postProduct = data.hastage;
     const postMessage = data.message;
-    const postCreatedTime = data.created_time;
+    const postCreatedTime = useFormatTime(data.created_time);
     //第一列為post的資訊
     const postTitleRow = ["商品名稱", "貼文內容", "貼文時間"];
     const postRow = [postProduct, postMessage, postCreatedTime];
@@ -116,13 +132,25 @@ function exportToExcel(data, mode) {
         //有種類
         const [buyer, variety] = messageList[0].split(" ");
         const quantity = messageList[1];
-        const row = [index + 1, buyer, comment.created_time, variety, quantity];
+        const row = [
+          index + 1,
+          buyer,
+          useFormatTime(comment.created_time),
+          variety,
+          quantity,
+        ];
         commentsTable.push(row);
       } else {
         //沒有種類
         const buyer = messageList[0];
         const quantity = messageList[1];
-        const row = [index + 1, buyer, comment.created_time, "無", quantity];
+        const row = [
+          index + 1,
+          buyer,
+          useFormatTime(comment.created_time),
+          "無",
+          quantity,
+        ];
         commentsTable.push(row);
       }
     });
