@@ -1,5 +1,5 @@
 export function showHashTag(hastag) {
-  if (typeof hastag == "string") {
+  if (typeof hastag === "string") {
     return hastag;
   } else {
     let newHashTag = "";
