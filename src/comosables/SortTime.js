@@ -9,12 +9,12 @@ export function useSortTime(posts, order) {
   });
 
   //從小到大
-  if (order == "asc") {
+  if (order === "asc") {
     newPosts.sort(function (a, b) {
       return a["created_time"] - b["created_time"];
     });
     //從大到小
-  } else if (order == "desc") {
+  } else if (order === "desc") {
     newPosts.sort(function (a, b) {
       return b["created_time"] - a["created_time"];
     });
