@@ -2,10 +2,11 @@
 import { DateTime } from "luxon";
 
 export function useSortTime(posts, order) {
-  let newPosts = [...posts];
-
-  newPosts.forEach((post, index) => {
-    newPosts[index]["created_time"] = DateTime.fromISO(post["created_time"]);
+  const newPosts = posts.map((post) => {
+    return {
+      ...post,
+      created_time: DateTime.fromISO(post["created_time"]),
+    };
   });
 
   //從小到大
