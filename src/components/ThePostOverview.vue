@@ -21,7 +21,7 @@
           </svg>
           <input
             v-model="search"
-            class="bg-gray-50 outline-none ml-1 block"
+            class="bg-gray-50 outline-none ml-1 block focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-md transition duration-300 ease-in-out"
             type="text"
             name=""
             id=""
@@ -32,7 +32,7 @@
         <div class="lg:ml-40 ml-10 space-x-8">
           <ExportToExcel :data="posts" mode="all" />
           <button
-            class="bg-blue-500 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
+            class="bg-blue-500 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer ease-in duration-300 hover:scale-105 hover:ring-1 hover:ring-blue-500 hover:ring-offset-1"
             @click="showAll"
           >
             Show All
@@ -58,14 +58,14 @@
                   <button @click="changeOrder('asc')">
                     <font-awesome-icon
                       :icon="['fas', 'circle-up']"
-                      class="mx-2"
+                      class="mx-2 ease-in duration-300 hover:scale-125"
                       v-if="order == 'desc'"
                     />
                   </button>
                   <button @click="changeOrder('desc')">
                     <font-awesome-icon
                       :icon="['fas', 'circle-down']"
-                      class="mx-2"
+                      class="mx-2 ease-in duration-300 hover:scale-125"
                       v-if="order == 'asc'"
                     />
                   </button>
@@ -82,6 +82,7 @@
                 v-for="post in posts"
                 :key="post.id"
                 @click="() => checkDetail(post.id)"
+                class="cursor-pointer"
               >
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <div class="flex items-center">

@@ -17,7 +17,7 @@
           <ExportToExcel :data="postListStore.cuurentPost" mode="post" />
           <button
             @click="stepStore.backStep"
-            class="bg-blue-500 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
+            class="bg-blue-500 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer ease-in duration-300 hover:scale-105 hover:ring-1 hover:ring-blue-500 hover:ring-offset-1"
           >
             回貼文總覽
           </button>

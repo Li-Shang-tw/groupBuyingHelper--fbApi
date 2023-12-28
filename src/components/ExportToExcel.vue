@@ -1,7 +1,7 @@
 <template>
   <button
     @click="exportToExcel(data, mode)"
-    class="bg-green-500 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
+    class="bg-green-500 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer ease-in duration-300 hover:scale-105 hover:ring-1 hover:ring-green-500 hover:ring-offset-1"
   >
     匯出Excel
   </button>

@@ -13,7 +13,7 @@
 
     <div class="mt-10 mx-auto w-full max-w-sm">
       <button
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto w-full"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto w-full ease-in duration-300 hover:scale-105 hover:ring-1 hover:ring-blue-500 hover:ring-offset-1"
         @click="handleSubmit"
       >
         呼叫網購小幫手
