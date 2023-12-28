@@ -1,8 +1,7 @@
 export function useFormatTime(time) {
   if (time) {
-    let formatTime = time.replace("T", `\n`);
-    formatTime = formatTime.split("+");
-    formatTime = formatTime[0];
-    return formatTime;
+    return time.replace("T", `\n`).split("+")[0];
+  } else {
+    return "X";
   }
 }
