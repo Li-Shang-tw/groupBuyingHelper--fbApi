@@ -7,7 +7,7 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
   plugins: [vue()],
   base:
-    process.env.Node_ENV === "production" ? "/groupBuyingHelper--fbAp/" : "/",
+    process.env.Node_ENV === "production" ? "/groupBuyingHelper--fbApi/" : "/",
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
