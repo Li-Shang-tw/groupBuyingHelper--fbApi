@@ -7,6 +7,7 @@ import Login from "./components/Login.vue";
 import PageOverview from "./components/PageOverview.vue";
 import PostOverview from "./components/PostOverview.vue";
 import PostDetail from "./components/PostDetail.vue";
+console.log("test");
 </script>
 
 <template>
